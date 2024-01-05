@@ -26,8 +26,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', # for allauth
     # Local Apps
     'userauth.apps.UserauthConfig',
+    'pages.apps.PagesConfig',
+    'track.apps.TrackConfig',
+    # Thirdpary Apps
+    'allauth',
+    'allauth.account',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
 ]
 
@@ -39,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'personaltracker.urls'
@@ -121,7 +130,22 @@ STATIC_ROOT = 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 
 # authentication
 
 AUTH_USER_MODEL = "userauth.CustomUser"
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_LOGOUT_REDIRECT = 'homepage'
+LOGIN_REDIRECT_URL = 'homepage'
+
+SITE_ID = 1
