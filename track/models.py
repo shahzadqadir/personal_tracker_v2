@@ -12,3 +12,19 @@ class Goal(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Objective(models.Model):
+    description = models.CharField(max_length=255)
+    category = models.CharField(max_length=100, blank=True, null=True)
+    due_date = models.DateField(default=timezone.now)
+    completion_date = models.DateField(blank=True, null=True)
+    effort_hours = models.FloatField(default=2.0)
+    effort_hours_left = models.FloatField(default=2.0)
+    status = models.CharField(max_length=100,default="notdone")
+    progress = models.PositiveIntegerField(default=0)
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name="goal_objectives")
+
+    def __str__(self):
+        return self.description[:50]
+
