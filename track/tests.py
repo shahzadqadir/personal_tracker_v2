@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from track.models import Goal
+from track.models import Goal, Objective
 
 class TestTrackModels(TestCase):
 
@@ -31,3 +31,16 @@ class TestTrackModels(TestCase):
             owner=self.owner
         )
         self.assertEqual(goal.status, "test status 2")
+
+    def test_create_objective_with_defaults(self):
+        goal = Goal.objects.create(
+            description="test goal",
+            status="test status",
+            owner=self.owner
+        )
+        objective = Objective.objects.create(
+            description="objective 1 for goal 1",
+            goal = goal
+        )
+        self.assertEqual(len(Objective.objects.all()), 1)
+        self.assertEqual(objective.description, "objective 1 for goal 1")
