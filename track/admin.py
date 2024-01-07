@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from track.models import Goal, Objective
+from track.models import Goal, Objective, Task
+
+
 
 
 class GoalAdmin(admin.ModelAdmin):
@@ -10,6 +12,7 @@ class GoalAdmin(admin.ModelAdmin):
     
     model = Goal
     list_display = ("short_description", "status", "target_date", "owner")
+    
 
 
 class ObjectiveAdmin(admin.ModelAdmin):
@@ -17,5 +20,11 @@ class ObjectiveAdmin(admin.ModelAdmin):
     list_display = ("short_description", "due_date", "effort_hours", "goal")
 
 
+
+
+
 admin.site.register(Goal, GoalAdmin)
 admin.site.register(Objective, ObjectiveAdmin)
+admin.site.register(Task)
+
+

@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block title %}Tasks List{% endblock %}
+
+{% block content %}
+
+  <div>
+    <h5>All Tasks:</h5>
+    {% for task in tasks %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>      
+        <tr>
+          <td><a class="a_no_underline" href="#">{{ task.title }}</a></td>
+          <td>{{ task.due_date }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+      </tbody>    
+    </table>
+    {% endfor %}
+  </div>
+  <div>
+    <a class="btn btn-outline-primary" href="#">Add Task</a>
+  </div>
+
+{% endblock %}

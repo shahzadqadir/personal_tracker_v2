@@ -14,8 +14,11 @@ class Goal(models.Model):
 
     def __str__(self):
         if len(self.description) > 50:
-            return self.description[:50] + "..."
+            return self.description[:50] + " ..."
         return self.description
+    
+    def short_description(self):
+        return self.description[:50] + " ..."
 
 
 class Objective(models.Model):
@@ -42,17 +45,39 @@ class Objective(models.Model):
         return self.description[:50]
 
 
+class Sprint(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=100, default="notstarted")
+    comments = models.TextField(null=True, blank=True)    
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, 
+                              related_name="user_sprints")
+
+    def __str__(self):
+        if len(self.title) > 50:
+            return self.title[:50] + " ..."
+        return self.title
+    
+    @property
+    def short_title(self):
+        return self.title[:50]
+    
+
 class Task(models.Model):
     title = models.CharField(max_length=255)
     due_date = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=100, default="notdone")
     date_completed = models.DateTimeField(null=True, blank=True)
-    start_time = models.TimeField(timezone.now)
+    start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(blank=True, null=True)
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE, 
                                   related_name="objective_tasks")
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
                               related_name="user_tasks")
+    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, 
+                               related_name="sprint_tasks", null=True, blank=True)
     
     def __str__(self):
         if len(self.title) > 50:
@@ -62,3 +87,7 @@ class Task(models.Model):
     @property
     def short_title(self):
         return self.title[:50]
+    
+
+
+        

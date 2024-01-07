@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+
+{% block title %}Details!{% endblock %}
+
+{% block content %}
+
+  <div>
+    <h4>{{ goal.description }}</h4>
+    <p><strong>Due Date: </strong>{{ goal.target_date }}</p>
+    <p><strong>Status: </strong>{{ goal.status }}</p>
+  </div>
+
+  <div class="mt-5">
+    <h4>Objectives</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Effort Hours</th>
+          <th scope="col">Progress</th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        {% if goal.goal_objectives.all %}
+          {% for objective in goal.goal_objectives.all %}  
+          <tr>
+            <td><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{ objective.short_description }}</a></td>
+            <td>{{ objective.due_date }}</td>
+            <td>{{ objective.effort_hours }}</td>
+            <td>{{ objective.progress }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <p>No objectives defined yet.</p>
+        {% endif %}
+      </tbody>    
+    </table>
+
+  </div>
+
+
+{% endblock %}
