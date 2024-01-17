@@ -3,8 +3,6 @@ from django.contrib import admin
 from track.models import Goal, Objective, Task
 
 
-
-
 class GoalAdmin(admin.ModelAdmin):
 
     def short_description(self, obj):

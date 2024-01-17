@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+{% block title %}Delete Objective{% endblock %}
+
+{% block content %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete <strong> {{objective}} </strong>? 
+      <button class="btn btn-danger" type="submit">Delete Objective</button>
+    </p>
+  </form>
+
+{% endblock %}

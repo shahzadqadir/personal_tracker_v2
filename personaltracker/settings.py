@@ -31,11 +31,13 @@ INSTALLED_APPS = [
     'userauth.apps.UserauthConfig',
     'pages.apps.PagesConfig',
     'track.apps.TrackConfig',
+    'api.apps.ApiConfig',
     # Thirdpary Apps
     'allauth',
     'allauth.account',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
 
 ]
 

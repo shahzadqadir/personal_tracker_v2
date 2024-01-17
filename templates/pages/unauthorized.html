@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="unauthorized_main">
+  GoalTracker can help you track the progress of your day to day tasks. 
+  You can
+  <ul>
+    <li>Define goals that you want to reach</li>
+    <li>Divide them into smaller objectives</li>
+    <li>Assign tasks to these objectives.</li>
+    <li>Create Sprints to keep track of your progress.</li>
+  </ul> 
+  
+  If you want to be on top of your goal achievement, <a class="a_no_underline" href="{% url 'account_signup' %}">Register here...</a>
+</div>
+{% endblock %}

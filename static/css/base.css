@@ -13,3 +13,28 @@ li {
 .a_no_underline:hover {
     text-decoration: underline;
 }
+
+.frontpage_cols{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    
+    padding: 1.5rem;
+}
+
+.unauthorized_main {
+    margin: 10%;
+    padding: 10%;
+    width: 70%;
+    font-size: large;
+    background-color: #;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    justify-content: center;
+    border-radius: 5%;
+}
+
+.unauthorized_main li{
+    list-style:circle;
+    margin-top: 1%;
+}
+

@@ -43,8 +43,8 @@
   </table>  
 </div>
 <div>
-  <a class="btn btn-primary" href="#">Update</a>
-  <a class="btn btn-danger" href="#">Delete</a>
+  <a class="btn btn-primary" href="{% url 'objective_update' objective.id %}">Update</a>
+  <a class="btn btn-danger" href="{% url 'objective_delete' objective.id %}">Delete</a>
 </div>
 <div class="mt-5">
   <h5>Related Tasks:</h5>
@@ -64,6 +64,7 @@
     </tbody>
   {% endfor %}
   </table>
+  <a href="{% url 'task_add' %}">Add Task</a>
 </div>
 
 {% endblock %}

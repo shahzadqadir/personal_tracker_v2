@@ -3,5 +3,63 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <h1>Homepage</h1>
+  <div class="row align-items-start">
+    <div class="col">
+
+        <!-- Goals list -->
+        <div class="frontpage_cols">       
+          <h5>Recent Goals</h5>
+          {% for goal in goals %}
+          <ul>          
+            <li>
+              <a href="{% url 'goal_detail' goal.id %}">{{ goal.description }}</a>
+
+            </li>
+          </ul>
+            {% endfor %}
+        </div>
+      <div class="frontpage_cols">
+        <h5>Tasks for today...</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+              <tr>
+                <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td>{{ task.status }}</td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col">
+      <div class="frontpage_cols">
+        <h4>Sprint - {{ sprint.title }}</h4>
+        <strong>{{ sprint.start_date }} to {{ sprint.end_date }}</strong><br><br>
+        <table class="table">
+          <tbody>
+            {% for task in sprint.sprint_tasks.all %}
+            <tr>
+              <td>{{ task.title }}</td>
+              <td>{{ task.due_date }}</td>
+              <td>{{ task.status }}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
+
+      </div>
+    </div>
+    
+  </div>
+
 {% endblock %}

@@ -1,0 +1,64 @@
+{% extends '_base.html' %}
+
+{% block title %}Sprint Detail{% endblock %}
+
+{% block content %}
+
+<div>
+  <h4>Sprint Details</h4>
+  <table class="table table-striped">
+    
+    <tbody>
+      <tr>
+        <td><strong>Title</strong></td>
+        <td>{{ sprint.title }}</td>
+      </tr>
+      <tr>
+        <td><strong>Description</strong></td>
+        <td>{{ sprint.description }}</td>
+      </tr>
+        <td><strong>Start Date</strong></td>
+        <td>{{ sprint.start_date }}</td>
+      <tr>
+        <td><strong>End Date</strong></td>
+        <td>{{ sprint.end_date }}</td>
+      </tr>
+      <tr>
+        <td><strong>Status</strong></td>
+        <td>{{ sprint.status }}</td>
+      </tr>
+      <tr>
+        <td><strong>Comments</strong></td>
+        <td>{{ sprint.comments }}</td>
+      </tr>            
+    </tbody>    
+  </table>  
+</div>
+<div>
+  <a class="btn btn-outline-primary" href="{% url 'sprint_update' sprint.id %}">Update</a>  
+  <a class="btn btn-outline-danger" href="{% url 'sprint_delete' sprint.id %}">Delete</a>
+</div>
+<div class="mt-5">
+  <h5>Related Tasks:</h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Due Date</th>
+      </tr>
+    </thead>    
+  {% for task in sprint.sprint_tasks.all %}
+    <tbody>
+      <tr>
+        <td><a href="{% url 'task_detail' task.id%}">{{ task.title }}</a></td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.due_date|date }}</td>
+      </tr>
+    </tbody>
+  {% endfor %}
+  </table>
+  <a href="{% url 'task_add' %}">Add Task</a>
+</div>
+
+{% endblock %}

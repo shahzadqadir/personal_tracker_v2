@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% block title %}Sprints{% endblock %}
+
+{% block content %}
+  
+  <h4>Sprints</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Sprint Title</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Status</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sprint in sprints %}
+      <tr>        
+          <td><a href="{% url 'sprint_detail' sprint.id %}">{{ sprint.title }}</a></td>
+          <td>{{ sprint.start_date }}</td>
+          <td>{{ sprint.end_date }}</td>
+          <td>{{ sprint.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+  <!-- Navigation -->
+  <div>
+    <a class="btn btn-outline-success" href="{% url 'sprint_add' %}">Add Sprint</a>
+  </div>
+
+{% endblock %}

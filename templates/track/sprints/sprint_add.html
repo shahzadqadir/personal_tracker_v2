@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Sprint{% endblock %}
+
+{% block content %}
+  <h4>New Sprint</h4><br>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success" type="submit">Add</button>
+  </form>
+
+{% endblock %}

@@ -6,7 +6,7 @@
 
   <div>
     <h5>All Tasks:</h5>
-    {% for task in tasks %}
+    
     <table class="table table-striped">
       <thead>
         <tr>
@@ -15,18 +15,20 @@
           <th scope="col">Status</th>
         </tr>
       </thead>
-      <tbody>      
-        <tr>
-          <td><a class="a_no_underline" href="#">{{ task.title }}</a></td>
+      <tbody>    
+      {% for task in tasks %}  
+        <tr>    
+          <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
           <td>{{ task.due_date }}</td>
           <td>{{ task.status }}</td>
         </tr>
+      {% endfor %}
       </tbody>    
     </table>
-    {% endfor %}
+    
   </div>
   <div>
-    <a class="btn btn-outline-primary" href="#">Add Task</a>
+    <a class="btn btn-outline-primary" href="{% url 'task_add' %}">Add Task</a>
   </div>
 
 {% endblock %}
