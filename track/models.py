@@ -46,11 +46,16 @@ class Objective(models.Model):
 
 
 class Sprint(models.Model):
+    STATUS_CHOICES = {
+        'notstarted': 'notstarted',
+        'inprogress': 'inprogress',
+        'complete': 'complete'
+    }
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=100, default="notstarted")
+    status = models.CharField(max_length=100, default="notstarted", choices=STATUS_CHOICES)
     comments = models.TextField(null=True, blank=True)    
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
                               related_name="user_sprints")
@@ -66,9 +71,12 @@ class Sprint(models.Model):
     
 
 class Task(models.Model):
+    STATUS_CHOICES = {
+        'notdone':'notdone', 'inprogress':'inprogress', 'complete':'complete'
+    }
     title = models.CharField(max_length=255)
     due_date = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=100, default="notdone")
+    status = models.CharField(max_length=100, default="notdone", choices=STATUS_CHOICES)
     date_completed = models.DateTimeField(null=True, blank=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(blank=True, null=True)

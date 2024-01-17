@@ -15,7 +15,7 @@ li {
 }
 
 .frontpage_cols{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
     margin: 5px;
     
@@ -37,4 +37,10 @@ li {
     list-style:circle;
     margin-top: 1%;
 }
+
+.green_background{
+    background-color: green;
+    color: white;
+}
+
 

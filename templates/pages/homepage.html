@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load my_filters %}
 
 {% block title %}Home{% endblock %}
 
@@ -28,13 +29,12 @@
             </tr>
           </thead>
           <tbody>
-            {% for task in tasks %}
+            {% for task in tasks %}            
               <tr>
-                <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td><a class="{{task.status|color_filter}}" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
                 <td>{{ task.status }}</td>
               </tr>
             {% endfor %}
-
           </tbody>
         </table>
       </div>
@@ -47,10 +47,9 @@
           <tbody>
             {% for task in sprint.sprint_tasks.all %}
             <tr>
-              <td>{{ task.title }}</td>
-              <td>{{ task.due_date }}</td>
+              <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+              <td>{{ task.due_date|date }}</td>
               <td>{{ task.status }}</td>
-
             </tr>
             {% endfor %}
           </tbody>
