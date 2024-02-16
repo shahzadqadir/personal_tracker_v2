@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'rest_framework',
+    'rest_framework.authtoken',
 
 ]
 
@@ -151,3 +152,14 @@ ACCOUNT_LOGOUT_REDIRECT = 'homepage'
 LOGIN_REDIRECT_URL = 'homepage'
 
 SITE_ID = 1
+
+# Rest Framework Settings
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    )
+}

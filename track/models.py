@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 default_user = User.objects.get(id=1)
 
+
 class Goal(models.Model):
     description = models.CharField(max_length=255)
     status = models.CharField(max_length=100, default="notdone")
@@ -80,6 +81,7 @@ class Task(models.Model):
     date_completed = models.DateTimeField(null=True, blank=True)
     start_time = models.TimeField(default=timezone.now)
     end_time = models.TimeField(blank=True, null=True)
+    effort_hours = models.PositiveIntegerField(default=2, blank=True, null=True)
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE, 
                                   related_name="objective_tasks")
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 

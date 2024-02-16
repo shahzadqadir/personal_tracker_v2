@@ -1,0 +1,42 @@
+API End points
+
+Goals:
+root/api/v1/goals/ 
+[GET: List all goals, POST: Add a new goal]
+
+root/api/v1/goals/goal_id/
+[GET: View goal details, PUT: update a goal, DELETE: delete a goal]
+
+root/api/v1/goals/goal_id/objectives - 
+[GET: View goals objectives]
+
+
+Objectives:
+root/api/v1/objectives/ - 
+[GET: List All Objectives, POST: Add a new objective]
+
+root/api/v1/objectives/objective_id/
+[GET: View objective details, PUT: update objective, DELETE: delete an objective]
+
+root/api/v1/objectives/objective_id/tasks/
+[GET: List tasks related to an objective]
+
+Task:
+root/api/v1/tasks/
+[GET: List all tasks, POST: Add a new task]
+
+root/api/v1/tasks/task_id/
+[GET: Details about a specific task, PUT: update task, DELETE: delete a task]
+
+Sprints
+root/api/v1/sprints/
+[GET: View all sprints, POST: Add a new sprint]
+
+root/api/v1/sprints/sprint_id/
+[GET: View details of a sprint, PUT: update sprint, DELETE: delete a sprint]
+
+root/api/v1/sprints/sprint_id/tasks/ - 
+[GET: View all tasks of a sprint, POST: Add a new task to sprint]
+
+root/api/v1/sprints/sprint_id/tasks/task_id/
+[GET: View task related to a sprint, PUT: update task, DELETE: delete a task]

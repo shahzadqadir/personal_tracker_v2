@@ -17,7 +17,7 @@
     <tbody>
       {% for sprint in sprints %}
       <tr>        
-          <td><a href="{% url 'sprint_detail' sprint.id %}">{{ sprint.title }}</a></td>
+          <td><a class="a_no_underline" href="{% url 'sprint_detail' sprint.id %}">{{ sprint.title }}</a></td>
           <td>{{ sprint.start_date }}</td>
           <td>{{ sprint.end_date }}</td>
           <td>{{ sprint.status }}</td>

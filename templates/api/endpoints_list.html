@@ -1,0 +1,71 @@
+{% extends '_base.html' %}
+
+{% block title %}API Endpoints{% endblock title %}
+
+{% block content %}
+
+  <div class="card">
+  <div class="card-header text-bg-success">
+    Goals
+  </div>
+  <div class="card-body">
+    <p class="card-text text-primary">root/api/v1/goals/</p>
+    <p class="card-text">[ Allowed Methods = GET, POST ] - view all goals, add a new one</p>
+    <p class="card-text text-primary">root/api/v1/goals/goal_id/</p>
+    <p class="card-text">[ GET, PUT, DELETE ] - view, update, delete a goal</p>
+    <p class="card-text text-primary">root/api/v1/goals/goal_id/objectives</p>
+    <p class="card-text">[ GET ] - view objectives related to this goal</p>
+  </div>
+  </div>
+  <br>
+  <div class="card">
+  <div class="card-header text-bg-success">
+    Objectives
+  </div>
+
+  <div class="card-body">
+    <p class="card-text text-primary">root/api/v1/objectives/</p>
+    <p class="card-text">[ Allowed Methods = GET, POST ] - view all objectives, add a new one</p>
+    <p class="card-text text-primary">root/api/v1/objectives/objective_id/</p>
+    <p class="card-text">[ GET, PUT, DELETE ] - view, update, delete an objective</p>
+    <p class="card-text text-primary">root/api/v1/objectives/objective_id/tasks/</p>
+    <p class="card-text">[ GET ] - view tasks related to this objective</p>
+  </div>
+  </div>
+
+  <br>
+
+  <div class="card">
+  <div class="card-header text-bg-success">
+    Tasks
+  </div>
+
+  <div class="card-body">
+    <p class="card-text text-primary">root/api/v1/tasks/</p>
+    <p class="card-text">[ Allowed Methods = GET, POST ] - view all tasks, add a new one</p>
+    <p class="card-text text-primary">root/api/v1/tasks/task_id//</p>
+    <p class="card-text">[ GET, PUT, DELETE ] - view, update, delete a task</p>
+  </div>
+  </div>
+
+  <br>
+
+  <div class="card">
+  <div class="card-header text-bg-warning">
+    Sprints
+  </div>
+
+    <div class="card-body">
+    <p class="card-text text-primary">root/api/v1/sprints/</p>
+    <p class="card-text">[ Allowed Methods = GET, POST ] - view all sprints, add a new one</p>
+    <p class="card-text text-primary">root/api/v1/sprints/sprint_id/</p>
+    <p class="card-text">[ GET, PUT, DELETE ] - view, update, delete an sprint</p>
+    <p class="card-text text-primary">root/api/v1/sprints/sprint_id/tasks/</p>
+    <p class="card-text">[ GET ] - view tasks related to this sprint</p>
+    <p class="card-text text-primary">root/api/v1/sprints/sprint_id/tasks/task_id/</p>
+    <p class="card-text">[ GET, PUT, DELETE ] - view, update, delete a task </p>
+  </div>
+  </div>
+<br>
+
+{% endblock content %}

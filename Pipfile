@@ -10,6 +10,7 @@ djangorestframework = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 django-allauth = "*"
+environs = {extras = ["django"], version = "*"}
 
 [dev-packages]
 

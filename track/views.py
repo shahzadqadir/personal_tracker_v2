@@ -198,7 +198,7 @@ class SprintListView(LoginRequiredMixin, ListView):
     context_object_name = "sprints"
 
     def get_queryset(self):
-        return Sprint.objects.filter(owner=self.request.user)   
+        return Sprint.objects.filter(owner=self.request.user).order_by("-end_date")   
 
 
 class SprintCreateView(LoginRequiredMixin, CreateView):

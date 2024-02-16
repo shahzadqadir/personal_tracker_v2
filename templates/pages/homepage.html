@@ -53,9 +53,30 @@
             </tr>
             {% endfor %}
           </tbody>
-        </table>
-        
+        </table>  
 
+        <table class="table mt-5">
+          <thead>
+            <th>Objective</th>
+            <th>% Completed (by effort hours)</th>
+          </thead>
+          {% for objective, time in effort_done_per_objective.items %}
+            <tr>
+              <td style="padding-right:1.1rem;">{{ objective }}</td>
+              
+
+              <td><div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{time}}%" aria-valuenow="{{time}}" aria-valuemin="0" 
+                aria-valuemax="100">{{time}} %</div>
+              </div></td>
+
+            </tr>
+          {% endfor %}
+        </table>
+
+          
+
+          
       </div>
     </div>
     
