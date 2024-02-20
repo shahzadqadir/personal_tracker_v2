@@ -4,80 +4,61 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <div class="row align-items-start">
-    <div class="col">
-
-        <!-- Goals list -->
-        <div class="frontpage_cols">       
-          <h5>Recent Goals</h5>
-          {% for goal in goals %}
-          <ul>          
-            <li>
-              <a href="{% url 'goal_detail' goal.id %}">{{ goal.description }}</a>
-
-            </li>
-          </ul>
-            {% endfor %}
-        </div>
-      <div class="frontpage_cols">
-        <h5>Tasks for today...</h5>
+  <div class="container-fluid row align-items-start mt-5">
+    <div class="col container text-center">
+      <h4>Sprint : stats</h4>
+      <progress value="{{ sprint_percent_completed }}" max="100" style="width: 350px; height: 50px;">
+        {{sprint_percent_completed}}
+      </progress>
+      <ul>
+        <li>Total Tasks: {{ sprint_task_count }}</li>
+        <li>Completed so far: {{ sprint_tasks_completed }}</li>
+        <li>Completed: {{ sprint_percent_completed }} %</li>
+        <li>Time spent: {{ sprint.get_time_spent_this_sprint }} Hours</li>
+      </ul>
+      
+      
+    </div>
+    <div class="col">    
+        <h4>What's up today...</h4>
         <table class="table">
           <thead>
             <tr>
-              <th>Description</th>
+              <th>Task</th>
+              <th>Planned Hours</th>
+              <th>Time Spent</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {% for task in tasks %}            
+            {% for task in tasks|dictsortreversed:"status" %}            
               <tr>
-                <td><a class="{{task.status|color_filter}}" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td><a class="{{task.status|color_filter}} a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td>{{ task.effort_hours }}</td>
+                <td>{{ task.get_hours_worked }}</td>
                 <td>{{ task.status }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="col">
-      <div class="frontpage_cols">
-        <h4>Sprint - {{ sprint.title }}</h4>
-        <strong>{{ sprint.start_date }} to {{ sprint.end_date }}</strong><br><br>
-        <table class="table">
-          <tbody>
-            {% for task in sprint.sprint_tasks.all %}
-            <tr>
-              <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
-              <td>{{ task.due_date|date }}</td>
-              <td>{{ task.status }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>  
 
-        <table class="table mt-5">
-          <thead>
-            <th>Objective</th>
-            <th>% Completed (by effort hours)</th>
-          </thead>
-          {% for objective, time in effort_done_per_objective.items %}
-            <tr>
-              <td style="padding-right:1.1rem;">{{ objective }}</td>
-              
+   
 
-              <td><div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: {{time}}%" aria-valuenow="{{time}}" aria-valuemin="0" 
-                aria-valuemax="100">{{time}} %</div>
-              </div></td>
-
-            </tr>
+    <div class="container mt-5">
+      <h4>Sprint - {{ sprint.title }}</h4>
+      <strong>{{ sprint.start_date }} to {{ sprint.end_date }}</strong><br><br>
+      <table class="table">
+        <tbody>
+          {% for task in sprint.sprint_tasks.all %}
+          <tr>
+            <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.status }}</td>
+          </tr>
           {% endfor %}
-        </table>
-
-          
-
-          
-      </div>
+        </tbody>
+      </table>  
     </div>
     
   </div>

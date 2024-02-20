@@ -3,32 +3,34 @@
 {% block title %}Tasks List{% endblock %}
 
 {% block content %}
+  <div class="container mt-5">
+    <div>
+      <h5>All Tasks:</h5>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>    
+        {% for task in tasks|dictsort:"status" %}  
+          <tr>    
+            <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+            <td>{{ task.due_date }}</td>
+            <td>{{ task.status }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>    
+      </table>
+      
+    </div>
+    <div>
+      <a class="btn btn-outline-primary" href="{% url 'task_add' %}">Add Task</a>
+    </div>
+  </div>
 
-  <div>
-    <h5>All Tasks:</h5>
-    
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Due Date</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>    
-      {% for task in tasks %}  
-        <tr>    
-          <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
-          <td>{{ task.due_date }}</td>
-          <td>{{ task.status }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>    
-    </table>
-    
-  </div>
-  <div>
-    <a class="btn btn-outline-primary" href="{% url 'task_add' %}">Add Task</a>
-  </div>
 
 {% endblock %}

@@ -78,6 +78,19 @@ class Sprint(models.Model):
     def short_title(self):
         return self.title[:50]
     
+    @property
+    def get_time_spent_this_sprint(self):
+        sum = 0
+        for task in self.sprint_tasks.all():
+            sum += task.end_time.hour - task.start_time.hour
+        return sum
+    
+    @property
+    def get_percentage_completed(self):
+        all_tasks = self.sprint_tasks.count()
+        completed_tasks = self.sprint_tasks.filter(status="complete").count()
+        return round((completed_tasks/all_tasks)*100, 2)
+    
 
 class Task(models.Model):
     STATUS_CHOICES = {

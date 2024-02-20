@@ -3,42 +3,44 @@
 {% block title %}Goals{% endblock %}
 
 {% block content %}
-  <h2>Objectives for {{request.user}}</h2><br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Description</th>
-        <th scope="col">Category</th>
-        <th scope="col">Hours Worked</th>
-        <th scope="col">Due Date</th>
-        <th scope="col">Effort Hours</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for objective in objectives %}
-      <tr>
-        <td><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{ objective.short_description }}</a></td>
-        <td>{{ objective.category }}</td>
-        <td>{{ objective.get_hours_worked }}</td>
-        <td>{{ objective.due_date }}</td>
-        <td>{{ objective.effort_hours }}</td>
-        <td>{{ objective.status }}</td>
-      </tr>
-      {% empty %}
-        <p>No goals defined yet.</p>
-      {% endfor %}
-    </tbody>    
-  </table>
-  {{ hours_worked }}
+  <div class="container mt-5">
+    <h2>Objectives for {{request.user}}</h2><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Hours Worked</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Effort Hours</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for objective in objectives %}
+        <tr>
+          <td><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{ objective.short_description }}</a></td>
+          <td>{{ objective.category }}</td>
+          <td>{{ objective.get_hours_worked }}</td>
+          <td>{{ objective.due_date }}</td>
+          <td>{{ objective.effort_hours }}</td>
+          <td>{{ objective.status }}</td>
+        </tr>
+        {% empty %}
+          <p>No goals defined yet.</p>
+        {% endfor %}
+      </tbody>    
+    </table>
+    {{ hours_worked }}
 
-  {% if not include_completed %}
-    <a class="text-success a_no_underline" href="{% url 'objectives_list_include_complete' %}">[[ Include Completed ]]</a>
-  {% else %}
-  <a class="text-danger a_no_underline" href="{% url 'objectives_list' %}">[[ Exclude Completed ]]</a>
-  {% endif %}
+    {% if not include_completed %}
+      <a class="text-success a_no_underline" href="{% url 'objectives_list_include_complete' %}">[[ Include Completed ]]</a>
+    {% else %}
+    <a class="text-danger a_no_underline" href="{% url 'objectives_list' %}">[[ Exclude Completed ]]</a>
+    {% endif %}
 
-  <div>
-    <a class="btn btn-outline-primary mt-5" href="{% url 'objective_add' %}">Add Objective</a>
+    <div>
+      <a class="btn btn-outline-primary mt-5" href="{% url 'objective_add' %}">Add Objective</a>
+    </div>
   </div>
   {% endblock content %}

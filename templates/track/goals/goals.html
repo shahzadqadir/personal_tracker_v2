@@ -3,30 +3,32 @@
 {% block title %}Goals{% endblock %}
 
 {% block content %}
-  <h2>Goals for {{request.user}}</h2><br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Description</th>
-        <th scope="col">Target Date</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for goal in goals %}
-      <tr>
-        <td><a class="a_no_underline" href="{% url 'goal_detail' goal.id %}">{{ goal.short_description }}</a></td>
-        <td>{{ goal.target_date }}</td>
-        <td>{{ goal.status }}</td>
-      </tr>
-      {% empty %}
-        <p>No goals defined yet.</p>
-      {% endfor %}
-    </tbody>    
-  </table>
+  <div class="container mt-5">
+    <h2>Goals for {{request.user}}</h2><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Target Date</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for goal in goals %}
+        <tr>
+          <td><a class="a_no_underline" href="{% url 'goal_detail' goal.id %}">{{ goal.short_description }}</a></td>
+          <td>{{ goal.target_date }}</td>
+          <td>{{ goal.status }}</td>
+        </tr>
+        {% empty %}
+          <p>No goals defined yet.</p>
+        {% endfor %}
+      </tbody>    
+    </table>
 
-  <div>
-    <a class="btn btn-outline-primary mt-5" href="{% url 'goal_add' %}">Add Goal</a>
+    <div>
+      <a class="btn btn-outline-primary mt-5" href="{% url 'goal_add' %}">Add Goal</a>
+    </div>
   </div>
   
 
