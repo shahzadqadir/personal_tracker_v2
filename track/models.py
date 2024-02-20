@@ -44,6 +44,14 @@ class Objective(models.Model):
     @property
     def short_description(self):
         return self.description[:50]
+    
+    @property
+    def get_hours_worked(self):
+        sum = 0
+        for task in self.objective_tasks.all():
+            sum += task.end_time.hour - task.start_time.hour
+        return sum
+
 
 
 class Sprint(models.Model):
@@ -76,11 +84,11 @@ class Task(models.Model):
         'notdone':'notdone', 'inprogress':'inprogress', 'complete':'complete'
     }
     title = models.CharField(max_length=255)
-    due_date = models.DateTimeField(default=timezone.now)
+    due_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=100, default="notdone", choices=STATUS_CHOICES)
     date_completed = models.DateTimeField(null=True, blank=True)
-    start_time = models.TimeField(default=timezone.now)
-    end_time = models.TimeField(blank=True, null=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     effort_hours = models.PositiveIntegerField(default=2, blank=True, null=True)
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE, 
                                   related_name="objective_tasks")
@@ -98,6 +106,9 @@ class Task(models.Model):
     def short_title(self):
         return self.title[:50]
     
+    @property
+    def get_hours_worked(self):
+        return self.end_time.hour - self.start_time.hour
 
 
         

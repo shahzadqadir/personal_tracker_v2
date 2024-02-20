@@ -75,9 +75,20 @@ class GoalDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def objectives_list(request):
-    objectives = Objective.objects.filter(owner=request.user)
-    return render(request, "track/objectives/objectives.html", {"objectives": objectives})
+    objectives = Objective.objects.filter(owner=request.user).exclude(status="complete")
+    return render(request, "track/objectives/objectives.html", 
+                  {
+                      "objectives": objectives,
+                      "include_completed": False,
+                   })
 
+def objectives_list_include_complete(request):
+    objectives = Objective.objects.filter(owner=request.user).order_by("-status")
+    return render(request, "track/objectives/objectives.html", 
+                  {
+                      "objectives": objectives,
+                      "include_completed": True,
+                   })
 
 @login_required
 def objective_detail(request, id):
@@ -153,7 +164,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = "track/tasks/task_add.html"
     fields = (
         "title", "due_date", "status", "date_completed",
-        "start_time", "end_time", "objective", "sprint",
+        "start_time", "end_time", "effort_hours", "objective", "sprint",
     )    
     success_url = reverse_lazy("tasks_list")
 
@@ -168,7 +179,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "track/tasks/task_edit.html"
     fields = (
         "title", "due_date", "status", "date_completed",
-        "start_time", "end_time", "objective", "sprint",
+        "start_time", "end_time", "effort_hours", "objective", "sprint",
     )
     success_url = reverse_lazy("tasks_list")
 

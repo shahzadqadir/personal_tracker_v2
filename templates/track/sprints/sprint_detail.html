@@ -44,16 +44,20 @@
     <thead>
       <tr>
         <th>Description</th>
-        <th>Status</th>
+        <th>Objective</th>
+        <th>Effort Hours</th>        
         <th>Due Date</th>
+        <th>Status</th>
       </tr>
     </thead>    
-  {% for task in sprint.sprint_tasks.all %}
+  {% for task in sprint.sprint_tasks.all|dictsortreversed:"status" %}
     <tbody>
       <tr>
         <td><a href="{% url 'task_detail' task.id%}">{{ task.title }}</a></td>
-        <td>{{ task.status }}</td>
+        <td>{{ task.objective}}</td>
+        <td>{{ task.effort_hours }}</td>        
         <td>{{ task.due_date|date }}</td>
+        <td>{{ task.status }}</td>
       </tr>
     </tbody>
   {% endfor %}
