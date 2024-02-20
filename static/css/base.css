@@ -43,4 +43,7 @@ li {
     color: white;
 }
 
+.nav-item:hover{
+    color: navy;
+}
 
