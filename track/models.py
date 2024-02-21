@@ -51,6 +51,14 @@ class Objective(models.Model):
         for task in self.objective_tasks.all():
             sum += task.end_time.hour - task.start_time.hour
         return sum
+    
+    @property
+    def get_tasks_count(self):
+        return self.objective_tasks.count()
+    
+    @property
+    def get_completed_tasks_count(self):
+        return self.objective_tasks.filter(status="complete").count()
 
 
 
