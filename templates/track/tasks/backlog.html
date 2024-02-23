@@ -10,14 +10,16 @@
         <thead>
           <tr>
             <th scope="col">Title</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Assign</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>    
         {% for task in backlog %}  
           <tr>    
             <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+            <td>{{task.date_added}}</td>
             <td><a href="{% url 'task_update' task.id %}">
               <img src="{% static 'images/scrum.png' %}" width="25" height="25">
             </a></td>
