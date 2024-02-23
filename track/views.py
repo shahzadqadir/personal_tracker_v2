@@ -199,6 +199,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     fields = (
         "title", "due_date", "status", "date_completed",
         "start_time", "end_time", "effort_hours", "objective", "sprint",
+        "backlog",
     )    
     success_url = reverse_lazy("tasks_list")
 
@@ -214,6 +215,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     fields = (
         "title", "due_date", "status", "date_completed",
         "start_time", "end_time", "effort_hours", "objective", "sprint",
+        "backlog",
     )
     success_url = reverse_lazy("tasks_list")
 

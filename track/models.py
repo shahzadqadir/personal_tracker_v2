@@ -120,6 +120,7 @@ class Task(models.Model):
                               related_name="user_tasks")
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, 
                                related_name="sprint_tasks", null=True, blank=True)
+    backlog = models.BooleanField(default=False, null=True, blank=True)
     
     def __str__(self):
         if len(self.title) > 50:
