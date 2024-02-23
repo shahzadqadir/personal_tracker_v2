@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+
 from django.views.generic import (
     DeleteView, ListView, CreateView,
     TemplateView, UpdateView, DetailView
@@ -11,6 +12,9 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from track import forms
+from track import models
+
+
 from track.models import (
     Goal, Objective, Task, Sprint
 )
@@ -302,3 +306,10 @@ class SprintDeleteView(LoginRequiredMixin, DeleteView):
         return super().post(self.request, *args, **kwargs)
 
 
+class BacklogList(ListView):
+    model = models.Task
+    template_name = "track/tasks/backlog.html"
+    context_object_name = "backlog"
+
+    def get_queryset(self):
+        return Task.objects.filter(owner=self.request.user, backlog=True)

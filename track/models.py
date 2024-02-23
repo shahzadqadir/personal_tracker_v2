@@ -121,6 +121,7 @@ class Task(models.Model):
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, 
                                related_name="sprint_tasks", null=True, blank=True)
     backlog = models.BooleanField(default=False, null=True, blank=True)
+    # date_added = models.DateField(default=timezone.now, null=True, blank=True)
     
     def __str__(self):
         if len(self.title) > 50:
@@ -134,6 +135,8 @@ class Task(models.Model):
     @property
     def get_hours_worked(self):
         return self.end_time.hour - self.start_time.hour
+    
+
 
 
         

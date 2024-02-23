@@ -36,6 +36,7 @@ urlpatterns = [
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task_detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),
+    path("tasks/backlog/", views.BacklogList.as_view(), name="backlog_list"),
     # Sprints
     path("sprints/", SprintListView.as_view(), name="sprints_list"),
     path("sprints/add/", SprintCreateView.as_view(), name="sprint_add"),
