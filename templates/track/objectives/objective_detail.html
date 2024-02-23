@@ -3,70 +3,72 @@
 {% block title %}Objective Detail{% endblock %}
 
 {% block content %}
+  <div class="container mt-5">
 
-<div>
-  <h4>Details</h4>
-  <table class="table table-striped">
-    
-    <tbody>
-      <tr>
-        <td><strong>Description</strong></td>
-        <td>{{ objective.description }}</td>
-      </tr>
-      <tr>
-        <td><strong>Category</strong></td>
-        <td>{{ objective.category }}</td>
-      </tr>
-        <td><strong>Due Date</strong></td>
-        <td>{{ objective.due_date }}</td>
-      <tr>
-        <td><strong>Effort Hours</strong></td>
-        <td>{{ objective.effort_hours }}</td>
-      </tr>
-      <tr>
-        <td><strong>Effort Hours Left</strong></td>
-        <td>{{ objective.effort_hours_left }}</td>
-      </tr>
-      <tr>
-        <td><strong>Status</strong></td>
-        <td>{{ objective.status }}</td>
-      </tr>
-      <tr>
-        <td><strong>Progress</strong></td>
-        <td>{{ objective.progress }}</td>
-      </tr>
-      <tr>        
-        <td><strong>Goal</strong></td>
-        <td><a href="{% url 'goal_detail' objective.goal.id %}">{{ objective.goal }}</a></td>
-      </tr>
-    </tbody>    
-  </table>  
-</div>
-<div>
-  <a class="btn btn-primary" href="{% url 'objective_update' objective.id %}">Update</a>
-  <a class="btn btn-danger" href="{% url 'objective_delete' objective.id %}">Delete</a>
-</div>
-<div class="mt-5">
-  <h5>Related Tasks:</h5>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Hours Worked</th>
-      </tr>
-    </thead>    
-  {% for task in objective.objective_tasks.all %}
-    <tbody>
-      <tr>
-        <td><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
-        <td>{{ task.status }}</td>
-        <td>{{ task.get_hours_worked }}</td>
-      </tr>
-    </tbody>
-  {% endfor %}
-  </table>
-  <a href="{% url 'task_add' %}">Add Task</a>
-</div>
+    <div>
+      <h4>Details</h4>
+      <table class="table table-striped">
+        
+        <tbody>
+          <tr>
+            <td><strong>Description</strong></td>
+            <td>{{ objective.description }}</td>
+          </tr>
+          <tr>
+            <td><strong>Category</strong></td>
+            <td>{{ objective.category }}</td>
+          </tr>
+            <td><strong>Due Date</strong></td>
+            <td>{{ objective.due_date }}</td>
+          <tr>
+            <td><strong>Effort Hours</strong></td>
+            <td>{{ objective.effort_hours }}</td>
+          </tr>
+          <tr>
+            <td><strong>Effort Hours Left</strong></td>
+            <td>{{ objective.effort_hours_left }}</td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td>{{ objective.status }}</td>
+          </tr>
+          <tr>
+            <td><strong>Progress</strong></td>
+            <td>{{ objective.progress }}</td>
+          </tr>
+          <tr>        
+            <td><strong>Goal</strong></td>
+            <td><a href="{% url 'goal_detail' objective.goal.id %}">{{ objective.goal }}</a></td>
+          </tr>
+        </tbody>    
+      </table>  
+    </div>
+    <div>
+      <a class="btn btn-outline-primary" href="{% url 'objective_update' objective.id %}">Update</a>
+      <a class="btn btn-danger" href="{% url 'objective_delete' objective.id %}">Delete</a>
+    </div>
+    <div class="mt-5">
+      <h5>Related Tasks:</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Hours Worked</th>
+          </tr>
+        </thead>    
+      {% for task in objective.objective_tasks.all %}
+        <tbody>
+          <tr>
+            <td><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.get_hours_worked }}</td>
+          </tr>
+        </tbody>
+      {% endfor %}
+      </table>
+      <a href="{% url 'task_add' %}">Add Task</a>
+    </div>
+  </div>
 
 {% endblock %}

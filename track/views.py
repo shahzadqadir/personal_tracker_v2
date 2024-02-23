@@ -20,8 +20,17 @@ from track.models import (
 
 @login_required
 def goals_list(request):
-    user_goals = Goal.objects.filter(owner=request.user).order_by('target_date')
-    return render(request, "track/goals/goals.html", {"goals": user_goals})
+    form = forms.SearchForm()
+    user_goals = Goal.objects.filter(owner=request.user).order_by("-target_date")
+
+    
+
+    if request.method == "POST":
+        form = forms.SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            user_goals = user_goals.filter(description__icontains=search)
+    return render(request, "track/goals/goals.html", {"goals": user_goals, "form": form})
 
 
 @login_required
@@ -75,11 +84,20 @@ class GoalDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def objectives_list(request):
+    
     objectives = Objective.objects.filter(owner=request.user).exclude(status="complete")
+    form = forms.SearchForm()
+    if request.method == "POST":
+        form = forms.SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            objectives = objectives.filter(description__icontains=search)
+            
     return render(request, "track/objectives/objectives.html", 
                   {
                       "objectives": objectives,
                       "include_completed": False,
+                      "form": form,
                    })
 
 def objectives_list_include_complete(request):
@@ -135,6 +153,11 @@ def objective_delete(request, id):
         return redirect("objectives_list")
     else:
         return render(request, "track/objectives/objective_delete.html")
+    
+
+@login_required
+def objectives_search(request):
+    pass
 
 # Unauthorized.
 
@@ -152,6 +175,17 @@ class TasksListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Task.objects.filter(owner=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super(TasksListView, self).get_context_data(**kwargs)
+        context["form"] = forms.SearchForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        form = forms.SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            return TasksListView.as_view()(request)
 
 
 class TaskDetailView(LoginRequiredMixin, DeleteView):

@@ -4,47 +4,48 @@
 {% block title %}Details!{% endblock %}
 
 {% block content %}
+  <div class="container mt-5">
 
-  <div>
-    <h4>{{ goal.description }}</h4>
-    <p><strong>Due Date: </strong>{{ goal.target_date }}</p>
-    <p><strong>Status: </strong>{{ goal.status }}</p>
-    <a class="btn btn-outline-primary" href="{% url 'goal_update' goal.id %}">Update</a>
-    <a class="btn btn-outline-danger" href="{% url 'goal_delete' goal.id %}">Delete</a>
+    <div>
+      <h4>{{ goal.description }}</h4>
+      <p><strong>Due Date: </strong>{{ goal.target_date }}</p>
+      <p><strong>Status: </strong>{{ goal.status }}</p>
+      <a class="btn btn-outline-primary" href="{% url 'goal_update' goal.id %}">Update</a>
+      <a class="btn btn-outline-danger" href="{% url 'goal_delete' goal.id %}">Delete</a>
+    </div>
+
+    <div class="mt-5">
+      <h4>Objectives</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Effort Hours</th>
+            <th scope="col">Progress</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+
+            {% for objective in goal.goal_objectives.all %}  
+                {% if objective %}
+                <tr>
+                  <td><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{ objective.short_description }}</a></td>
+                  <td>{{ objective.due_date }}</td>
+                  <td>{{ objective.effort_hours }}</td>
+                  <td>{{ objective.progress }}</td>
+                </tr>
+                {% endif %}
+              {% empty %}
+                <p>No Objectives defined.</p>
+            {% endfor %}
+
+        </tbody>    
+      </table>
+      <a href="{% url 'objective_add' %}">Add Objective</a>
+
+    </div>
   </div>
-
-  <div class="mt-5">
-    <h4>Objectives</h4>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Description</th>
-          <th scope="col">Due Date</th>
-          <th scope="col">Effort Hours</th>
-          <th scope="col">Progress</th>
-        </tr>
-      </thead>
-    
-      <tbody>
-
-          {% for objective in goal.goal_objectives.all %}  
-              {% if objective %}
-              <tr>
-                <td><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{ objective.short_description }}</a></td>
-                <td>{{ objective.due_date }}</td>
-                <td>{{ objective.effort_hours }}</td>
-                <td>{{ objective.progress }}</td>
-              </tr>
-              {% endif %}
-            {% empty %}
-              <p>No Objectives defined.</p>
-          {% endfor %}
-
-      </tbody>    
-    </table>
-    <a href="{% url 'objective_add' %}">Add Objective</a>
-
-  </div>
-
 
 {% endblock %}

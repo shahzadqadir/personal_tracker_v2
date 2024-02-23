@@ -20,6 +20,9 @@ class Goal(models.Model):
     
     def short_description(self):
         return self.description[:50] + " ..."
+    
+    def get_objectives_count(self):
+        return self.goal_objectives.count()
 
 
 class Objective(models.Model):

@@ -21,7 +21,6 @@ def homepage(request):
 
             
             "goals": Goal.objects.filter(owner=request.user)
-                    .exclude(status__contains="complete")
                     .order_by('target_date'),
 
             "sprint": current_sprint,

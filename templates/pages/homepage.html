@@ -6,7 +6,9 @@
 {% block content %}
   <div class="container-fluid row align-items-start mt-5">
     <div class="col container text-center">
-      <h4>Sprint : stats</h4>
+      <hr style="width: 50%; margin-left: 30%;">
+      <h4>Sprint : statistics</h4>
+      <hr style="width: 50%; margin-left: 30%;">
       <progress value="{{ sprint_percent_completed }}" max="100" style="width: 350px; height: 50px;">
         {{sprint_percent_completed}}
       </progress>
@@ -15,9 +17,24 @@
         <li>Completed so far: {{ sprint_tasks_completed }}</li>
         <li>Completed: {{ sprint_percent_completed }} %</li>
         <li>Time spent: {{ sprint.get_time_spent_this_sprint }} Hours</li>
-      </ul>
-      
-      
+      </ul>     
+
+      <br>
+
+      <hr style="width: 50%; margin-left: 30%;">
+      <h4>Goals : statistics</h4>
+      <hr style="width: 50%; margin-left: 30%;">
+      <ul>
+        {% for goal in goals %}
+          <li><p><strong>{{goal}}</strong> -
+            [objectives - {{goal.get_objectives_count}}]</p>
+            <ul>
+              {% for objective in goal.goal_objectives.all %}
+                <li><a class="a_no_underline" href="{% url 'objective_detail' objective.id %}">{{objective}}</a> - Tasks: {{ objective.get_tasks_count }}, Completed: {{objective.get_completed_tasks_count}}</li>
+              {% endfor %}<br>
+            </ul>
+          </li>
+        {% endfor %}      
     </div>
     <div class="col">    
         <h4>What's up today...</h4>
@@ -45,20 +62,8 @@
 
    
 
-    <div class="container mt-5">
-      <h4>Sprint - {{ sprint.title }}</h4>
-      <strong>{{ sprint.start_date }} to {{ sprint.end_date }}</strong><br><br>
-      <table class="table">
-        <tbody>
-          {% for task in sprint.sprint_tasks.all %}
-          <tr>
-            <td><a class="a_no_underline" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
-            <td>{{ task.due_date }}</td>
-            <td>{{ task.status }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>  
+    <div class="container mt-5" style="width: 70%;">
+      
     </div>
     
   </div>

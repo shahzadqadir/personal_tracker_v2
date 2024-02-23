@@ -1,5 +1,7 @@
 from django.urls import path
 
+from track import views
+
 from track.views import (
     UnAuthorizedView,
     goals_list, goal_detail, goal_add, goal_update,
@@ -24,6 +26,7 @@ urlpatterns = [
     path("objectives/include_complete/", objectives_list_include_complete, name="objectives_list_include_complete"),
     path("objectives/", objectives_list, name="objectives_list"),    
     path("objectives/add/", objective_add, name="objective_add"),
+    path("objectives/search/", views.objectives_search, name="objectives_search"),
     path("objectives/<int:id>/", objective_detail, name="objective_detail"),
     path("objectives/<int:id>/update/", objective_update, name="objective_update"),
     path("objectives/<int:id>/delete/", objective_delete, name="objective_delete"),

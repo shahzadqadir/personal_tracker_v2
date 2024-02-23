@@ -1,11 +1,17 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Tasks List{% endblock %}
 
 {% block content %}
   <div class="container mt-5">
     <div>
-      <h5>All Tasks:</h5>
+      <h5>Tasks:</h5>
+      <p>TODO: still working on search using Class Based Views</p>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+      </form>
       
       <table class="table table-striped">
         <thead>

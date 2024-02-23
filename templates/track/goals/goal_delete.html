@@ -3,12 +3,13 @@
 {% block title %}Delete Goal{% endblock %}
 
 {% block content %}
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete <strong> {{goal}} </strong>? 
-      <button class="btn btn-danger" type="submit">Delete Goal</button>
-    </p>
-  </form>
+  <div class="container mt-5">
+    <form action="" method="post">
+      {% csrf_token %}
+      <p>Are you sure you want to delete <strong> {{goal}} </strong>? 
+        <button class="btn btn-danger" type="submit">Delete Goal</button>
+      </p>
+    </form>
+  </div>
 
 {% endblock %}

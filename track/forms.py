@@ -13,7 +13,13 @@ class ObjectivesForm(forms.ModelForm):
     class Meta:
         model = Objective
         exclude = ("owner",)
-        # fields = ("description", "category", "due_date", "completion_date",
-        #           "effort_hours", "effort_hours_left", "status", "progress", "goal",
-        #           )
+        
+        
+class SearchForm(forms.Form):
+    search = forms.CharField(label="", required=False,
+                             widget=forms.TextInput(attrs={"placeholder": "Search ..."}))
+    
+    def __str__(self):
+        return "Search..."
+
     
