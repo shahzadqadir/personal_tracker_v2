@@ -11,6 +11,8 @@ django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 django-allauth = "*"
 environs = {extras = ["django"], version = "*"}
+matplotlib = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

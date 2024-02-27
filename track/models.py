@@ -95,13 +95,52 @@ class Sprint(models.Model):
         for task in self.sprint_tasks.all():
             sum += task.end_time.hour - task.start_time.hour
         return sum
+
+    @property
+    def get_hours_worked_per_day(self):
+        hours_per_date = {}
+        for task in self.sprint_tasks.order_by("-due_date"):
+            if task.status == "complete":
+                if str(task.due_date.date()) not in hours_per_date:
+                    hours_per_date[str(task.due_date.date())] = task.end_time.hour - task.start_time.hour
+                else:
+                    hours_per_date[str(task.due_date.date())] += task.end_time.hour - task.start_time.hour
+        return hours_per_date
     
     @property
     def get_percentage_completed(self):
         all_tasks = self.sprint_tasks.count()
+        if all_tasks == 0:
+            return 0
         completed_tasks = self.sprint_tasks.filter(status="complete").count()
         return round((completed_tasks/all_tasks)*100, 2)
     
+    @property
+    def get_percentage_completed_by_date(self):
+        
+        tasks_by_date = {}
+        for task in self.sprint_tasks.order_by("-due_date"):
+            if str(task.due_date.date()) not in tasks_by_date:
+                tasks_by_date[str(task.due_date.date())] = 1
+            else:
+                tasks_by_date[str(task.due_date.date())] += 1
+        
+        completed_tasks_by_date = {}
+        for task in self.sprint_tasks.order_by("-due_date"):
+            if task.status == "complete":
+                if str(task.due_date.date()) not in completed_tasks_by_date:
+                    completed_tasks_by_date[str(task.due_date.date())] = 1
+                else:
+                    completed_tasks_by_date[str(task.due_date.date())] += 1
+        
+        tasks_percentage = {}
+        for dat in tasks_by_date:
+            try:
+                tasks_percentage[dat[5:]] = (completed_tasks_by_date[dat]/tasks_by_date[dat])*100
+            except KeyError:
+                pass
+
+        return tasks_percentage
 
 class Task(models.Model):
     STATUS_CHOICES = {

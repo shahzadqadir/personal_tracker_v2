@@ -51,7 +51,7 @@
             <th>Status</th>
           </tr>
         </thead>    
-      {% for task in sprint.sprint_tasks.all|dictsortreversed:"status" %}
+      {% for task in sprint.sprint_tasks.all|dictsort:"status" %}
         <tbody>
           <tr>
             <td><a href="{% url 'task_detail' task.id%}">{{ task.title }}</a></td>
