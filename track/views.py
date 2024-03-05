@@ -272,6 +272,7 @@ class SprintDetailView(LoginRequiredMixin, DetailView):
     template_name = "track/sprints/sprint_detail.html"
     context_object_name = "sprint"
 
+ 
     def get(self, *args, **kwargs):
         self.object = self.get_object()
         if self.object.owner != self.request.user:
