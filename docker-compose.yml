@@ -5,7 +5,7 @@ services:
     build: .
     command: python /code/manage.py runserver 0.0.0.0:8000
     ports:
-      - 8005:8005
+      - 8000:8000
     volumes:
       - .:/code
     
