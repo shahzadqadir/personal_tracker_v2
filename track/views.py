@@ -1,4 +1,6 @@
-from typing import Any
+from datetime import datetime
+
+from django.contrib import messages
 from django.db.models.base import Model as Model
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,6 +11,7 @@ from django.views.generic import (
     DeleteView, ListView, CreateView,
     TemplateView, UpdateView, DetailView
 )
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from track import forms
@@ -18,7 +21,6 @@ from track import models
 from track.models import (
     Goal, Objective, Task, Sprint
 )
-
 
 # Goals
 
@@ -205,8 +207,18 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         "start_time", "end_time", "effort_hours", "objective", "sprint",
         "backlog",
     )    
-    success_url = reverse_lazy("tasks_list")
 
+    def get_success_url(self):
+        print(dir(self.object))
+        return reverse("sprint_detail", kwargs={"pk": self.object.sprint_id})
+    
+    # success_url = reverse_lazy("tasks_list")
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields["sprint"].queryset = Sprint.objects.order_by("-start_date")
+        return form
+    
     def form_valid(self, form):
         form.instance.owner = self.request.user
         form.instance.save()
@@ -221,7 +233,9 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
         "start_time", "end_time", "effort_hours", "objective", "sprint",
         "backlog",
     )
-    success_url = reverse_lazy("tasks_list")
+    
+    def get_success_url(self):
+        return reverse("sprint_detail", kwargs={"pk": self.object.sprint_id})
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -232,13 +246,39 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "track/tasks/task_delete.html"
-    success_url = reverse_lazy("tasks_list")
 
     def get(self, *args, **kwargs):
         self.object = self.get_object()
         if self.object.owner != self.request.user:
             return redirect(reverse_lazy("unauthorized"))
         return super().post(self.request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse("sprint_detail", kwargs={"pk": self.object.sprint_id})
+    
+
+def task_update_start_time(request, pk):
+    task = Task.objects.get(id=pk)
+    current_time = datetime.now().time()
+    if task.status != "complete":    
+        task.start_time = current_time
+        task.save()
+        messages.info(request, f"<<{task}>> started on {current_time}.")
+    else:
+        messages.warning(request, f"Can't start a completed task!")
+    return redirect(reverse("homepage"))
+
+def task_update_end_time(request, pk):
+    task = Task.objects.get(id=pk)
+    current_time = datetime.now().time()
+    if task.status != "complete":
+        task.end_time = current_time
+        task.save()
+        messages.info(request, f"<<{task}>> ended on {current_time.hour}:{current_time.minute}")
+    else:
+        messages.warning(request, f"Task has already ended.")
+    return redirect(reverse("homepage"))
+
     
 
 #========================= for sprints

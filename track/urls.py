@@ -35,6 +35,8 @@ urlpatterns = [
     path("tasks/add", TaskCreateView.as_view(), name="task_add"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task_detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),
+    path("tasks/<int:pk>/update_start_time/", views.task_update_start_time, name="task_update_start_time"),
+    path("tasks/<int:pk>/update_end_time/", views.task_update_end_time, name="task_update_end_time"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),
     path("tasks/backlog/", views.BacklogList.as_view(), name="backlog_list"),
     # Sprints

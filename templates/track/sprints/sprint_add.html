@@ -9,7 +9,9 @@
     <h4>New Sprint</h4><br>
     <form action="" method="POST">
       {% csrf_token %}
-      {{ form|crispy }}
+
+        {{ form|crispy|safe }}
+
       <button class="btn btn-success" type="submit">Add</button>
     </form>
   </div>

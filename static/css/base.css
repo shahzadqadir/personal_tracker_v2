@@ -45,3 +45,32 @@ li {
     color: navy;
 }
 
+
+.start_button {
+    border: 1px solid green;
+    border-radius: 3px;
+    background-color: #003400;
+    color: white;
+    margin: 1px;
+    padding: .2em;
+    text-decoration: none;
+}
+
+.start_button:hover {
+    background-color: green;
+}
+
+.end_button {
+    border: 1px solid red;
+    background-color: #C70039;
+    border-radius: 3px;
+    color: white;
+    margin: 1px;
+    padding: .2em;
+    text-decoration: none;
+}
+
+.end_button:hover {
+    background-color: red;
+}
+

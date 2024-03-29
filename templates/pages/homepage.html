@@ -37,12 +37,21 @@
           </li>
         {% endfor %}      
     </div>
-    <div class="col">    
+    <div class="col">     
         <h4>What's up today...</h4>
+        <div>
+          {% if messages %}    
+            {% for message in messages %}
+              {{message}}
+            {% endfor %}
+          {% endif %}
+        </div>
         <table class="table">
           <thead>
             <tr>
               <th>Task</th>
+              <th></th>
+              <th></th>
               <th>Planned Hours</th>
               <th>Time Spent</th>
               <th>Status</th>
@@ -55,7 +64,9 @@
                   <a class="{{task.status|color_filter}} a_no_underline" href="{% url 'task_detail' task.id %}">
                     {{ task.title }}
                   </a></td>
-                <td>{{ task.effort_hours }}</td>
+                <td width="50px"><a id="start_{{task.id}}" class="start_button" href="{% url 'task_update_start_time' task.id %}" onclick="disable_button(this)">Start</a></td>
+                <td width="30px"><a id="end_{{task.id}}" class="end_button" href="{% url 'task_update_end_time' task.id %}" onclick="disable_button(this)">End</a></td>
+                <td style="text-align: center;">{{ task.effort_hours }}</td>
                 <td>{{ task.get_hours_worked }}</td>
                 <td>{{ task.status }}</td>
               </tr>
@@ -65,6 +76,10 @@
         <div class="mt-5">
           <h4>Sprint Performance</h4>
           <img src="{% static 'images/sprint_performance.png' %}" alt="Sprint Performance">
+        </div>
+        <div class="mt-5">
+          <h4>Last 5 Sprints Achievement</h4>
+          <img src="{% static 'images/recent_sprints_performance.png' %}" alt="Sprint Performance">
         </div>
       </div>
 

@@ -13,9 +13,9 @@
             <td><strong>Title</strong></td>
             <td>{{ sprint.title }}</td>
           </tr>
-          <tr>
+          <tr>ik,
             <td><strong>Description</strong></td>
-            <td>{{ sprint.description }}</td>
+            <td>{{ sprint.description|safe }}</td>
           </tr>
             <td><strong>Start Date</strong></td>
             <td>{{ sprint.start_date }}</td>
@@ -28,9 +28,13 @@
             <td>{{ sprint.status }} - <strong>{{ sprint.get_percentage_completed }}</strong> % complete</td>
           </tr>
           <tr>
+            <td><strong>Hours Planned</strong></td>
+            <td>{{ sprint.get_time_planned_this_sprint }}</td>
+          </tr>            
+          <tr>
             <td><strong>Comments</strong></td>
             <td>{{ sprint.comments }}</td>
-          </tr>            
+          </tr>
         </tbody>    
       </table>  
     </div>
@@ -51,11 +55,11 @@
             <th>Status</th>
           </tr>
         </thead>    
-      {% for task in sprint.sprint_tasks.all|dictsort:"objective_id" %}
+      {% for task in sprint.sprint_tasks.all|dictsortreversed:"due_date" %}
         <tbody>
           <tr>
-            <td><a href="{% url 'task_detail' task.id%}">{{ task.title }}</a></td>
-            <td>{{ task.objective}}</td>
+            <td><a href="{% url 'task_detail' task.id%}">{{ task.title|safe }}</a></td>
+            <td>{{ task.objective|safe}}</td>
             <td>{{ task.effort_hours }}</td>        
             <td>{{ task.due_date|date }}</td>
             <td>{{ task.status }}</td>

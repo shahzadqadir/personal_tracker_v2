@@ -95,6 +95,13 @@ class Sprint(models.Model):
         for task in self.sprint_tasks.all():
             sum += task.end_time.hour - task.start_time.hour
         return sum
+    
+    @property
+    def get_time_planned_this_sprint(self):
+        sum = 0
+        for task in self.sprint_tasks.all():
+            sum += task.effort_hours
+        return sum
 
     @property
     def get_hours_worked_per_day(self):
