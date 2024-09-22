@@ -65,7 +65,7 @@ def homepage(request):
             cols = []
             for percentage in recent_sprints_percent_completed:
                 print(percentage)
-                if percentage > 95:
+                if percentage >= 95:
                     cols.append('#006400')
                 elif percentage > 90 and percentage < 95:
                     cols.append('#708238')
