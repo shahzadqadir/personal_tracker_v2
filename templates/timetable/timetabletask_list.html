@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+
+{% block title %}Time Table(s) Tasks{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">Time Table</th>
+          <th scope="col">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for timetabletask in timetabletasks %}
+        <tr>
+          <td>{{ timetabletask.description }}</td>
+          <td>{{ timetabletask.start_time }}</td>
+          <td>{{ timetabletask.end_time }}</td>
+          <td>{{ timetabletask.timetable }}</td>
+          <td>{{ timetabletask.comments }}</td>
+        </tr>
+        {% empty %}
+          <p>No timetable task defined yet.</p>
+        {% endfor %}
+      </tbody>    
+    </table>
+
+    <div>
+      <a class="btn btn-outline-primary mt-5" href="{% url 'timetabletask_add' %}">Add Time Table Task</a>
+    </div>
+  </div>
+  
+
+{% endblock %}

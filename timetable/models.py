@@ -21,7 +21,7 @@ class TimeTableTask(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     description = models.CharField(max_length=1000)
-    timetable = models.ForeignKey(TimeTable, on_delete=models.CASCADE)
+    timetable = models.ForeignKey(TimeTable, on_delete=models.CASCADE, related_name='timetable_tasks')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     comments = models.CharField(max_length=1000, null=True, blank=True)
 

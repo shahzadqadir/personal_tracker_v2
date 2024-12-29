@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+
+{% block title %}Delete Time Table Task{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <form action="" method="post">
+      {% csrf_token %}
+      <p>Are you sure you want to delete <strong> {{timetabletask}} </strong>? 
+        <button class="btn btn-danger" type="submit">Delete Time Table Task</button>
+      </p>
+    </form>
+  </div>
+
+{% endblock %}

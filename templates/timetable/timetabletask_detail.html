@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% block title %}Time Table Task{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h5>{{ timetabletask.description }}</h5>
+    <br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">TimeTable</th>
+          <th scope="comments">Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        <tr>
+          <td>{{ timetabletask.start_time }}</td>
+          <td>{{ timetabletask.end_time }}</td>
+          <td>{{ timetabletask.timetable }}</td>
+          <td>{{ timetabletask.comments }}</td>
+        </tr>
+       
+      </tbody>    
+    </table>
+
+  </div>
+  
+
+{% endblock %}

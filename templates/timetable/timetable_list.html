@@ -16,7 +16,7 @@
       <tbody>
         {% for timetable in timetables %}
         <tr>
-          <td><a class="a_no_underline" href="#">{{ timetable.description }}</a></td>
+          <td><a class="a_no_underline" href="{% url 'timetable_relatedtasks' timetable.id %}">{{ timetable.description }}</a></td>
           <td>{{ timetable.valid_from }}</td>
           <td>{{ timetable.valid_until }}</td>
         </tr>
