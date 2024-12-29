@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'track.apps.TrackConfig',
     'api.apps.ApiConfig',
+    'timetable.apps.TimetableConfig',
     # Thirdpary Apps
     'allauth',
     'allauth.account',

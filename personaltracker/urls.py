@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('accounts/', include('allauth.urls')),
     path('track/', include('track.urls')),
+    path('timetable/', include('timetable.urls')),
     path('api/v1/', include('api.urls')),
     path('authenticate/', obtain_auth_token, name="obtain_auth_token"),
 ]

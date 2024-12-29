@@ -4,10 +4,10 @@ from django.conf import settings
 from track.models import Task, Objective, Goal, Sprint
 from os import path
 import matplotlib.pyplot as plt
+import datetime
 
 
 def homepage(request):
-
     
     if request.user.is_authenticated: 
         user_objectives = Objective.objects.filter(owner=request.user)
@@ -77,7 +77,10 @@ def homepage(request):
             plt.bar_label(plt.gca().containers[0])
             plt.xlabel("Sprint")
             plt.ylabel("Percentage Achieved")
-            f1.savefig(path.join(settings.STATICFILES_DIRS[0], 'images/recent_sprints_performance.png'))
+            if (datetime.datetime.now().date() - recent_sprints[0].end_date) > 30:
+                f1.savefig(path.join(settings.STATICFILES_DIRS[0], 'images/recent_sprints_performance_archive.png'))
+            else:
+                f1.savefig(path.join(settings.STATICFILES_DIRS[0], 'images/recent_sprints_performance.png'))
 
             context["sprint"] = current_sprint
             context["sprint_task_count"] = current_sprint_total_tasks
