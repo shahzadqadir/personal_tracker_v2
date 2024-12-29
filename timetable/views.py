@@ -16,8 +16,17 @@ class TimeTableListView(generic.ListView, LoginRequiredMixin):
     def get_queryset(self):
         return TimeTable.objects.filter(owner=self.request.user)
     
+
+    
 class TimeTableCreateView(generic.CreateView, LoginRequiredMixin):
     model = TimeTable
     form_class = TimeTableForm
     template_name = 'timetable/timetable_add.html'
-    success_url = reverse_lazy("sprints_list")
+    success_url = reverse_lazy("timetable_list")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.save()
+        return super(TimeTableCreateView, self).form_valid(form)
+    
+
