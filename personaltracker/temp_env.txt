@@ -1,0 +1,7 @@
+SECRET_KEY="django-insecure-!*cf-&!2&zgmrvwtw378-f%m0e9=v!lnf1d0=(pgcye3wsqu$v"
+DEBUG="true"
+DB_NAME='postgres'
+DB_HOST='db'
+DB_USER='postgres'
+DB_PASSWORD='postgres'
+ALLOWED_HOSTS = "localhost"

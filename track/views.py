@@ -27,7 +27,7 @@ from track.models import (
 @login_required
 def goals_list(request):
     form = forms.SearchForm()
-    user_goals = Goal.objects.filter(owner=request.user).order_by("-target_date")
+    user_goals = Goal.objects.filter(owner=request.user).order_by("target_date")
 
     
 

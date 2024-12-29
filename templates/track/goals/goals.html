@@ -5,7 +5,7 @@
 
 {% block content %}
   <div class="container mt-5">
-    <h2>Goals for {{request.user}}</h2><br>
+    <h2>Goals for {{request.user.first_name}}</h2><br>
     <form action="" method="post">
       {% csrf_token %}
         <p>Search</p>

@@ -11,7 +11,7 @@ class Goal(models.Model):
     status = models.CharField(max_length=100, default="notdone")
     target_date = models.DateField(default=timezone.now)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
-                              related_name="user_goals")
+                              related_name="user_goals", null=True, blank=True)
 
     def __str__(self):
         if len(self.description) > 50:
@@ -35,9 +35,9 @@ class Objective(models.Model):
     status = models.CharField(max_length=100,default="notdone")
     progress = models.PositiveIntegerField(default=0)
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE, 
-                             related_name="goal_objectives")
+                             related_name="goal_objectives", null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
-                              related_name="user_objectives")
+                              related_name="user_objectives", null=True, blank=True)
 
     def __str__(self):
         if len(self.description) > 50:
@@ -78,7 +78,7 @@ class Sprint(models.Model):
     status = models.CharField(max_length=100, default="notstarted", choices=STATUS_CHOICES)
     comments = models.TextField(null=True, blank=True)    
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
-                              related_name="user_sprints")
+                              related_name="user_sprints", null=True, blank=True)
 
     def __str__(self):
         if len(self.title) > 50:
@@ -161,9 +161,9 @@ class Task(models.Model):
     end_time = models.TimeField()
     effort_hours = models.PositiveIntegerField(default=2, blank=True, null=True)
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE, 
-                                  related_name="objective_tasks")
+                                  related_name="objective_tasks", null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
-                              related_name="user_tasks")
+                              related_name="user_tasks", null=True, blank=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, 
                                related_name="sprint_tasks", null=True, blank=True)
     backlog = models.BooleanField(default=False, null=True, blank=True)

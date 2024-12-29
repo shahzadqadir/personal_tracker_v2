@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+{% block title %}Time Tables{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Valid From</th>
+          <th scope="col">Valid Until</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for timetable in timetables %}
+        <tr>
+          <td><a class="a_no_underline" href="{% url '#">{{ timetable.description }}</a></td>
+          <td>{{ timetable.valid_from }}</td>
+          <td>{{ timetable.valid_until }}</td>
+        </tr>
+        {% empty %}
+          <p>No timetables defined yet.</p>
+        {% endfor %}
+      </tbody>    
+    </table>
+
+    <div>
+      <a class="btn btn-outline-primary mt-5" href="{% url 'timetable_add' %}">Add Time Table</a>
+    </div>
+  </div>
+  
+
+{% endblock %}
