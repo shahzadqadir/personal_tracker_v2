@@ -16,8 +16,7 @@ class TimeTableListView(generic.ListView, LoginRequiredMixin):
     def get_queryset(self):
         return TimeTable.objects.filter(owner=self.request.user)
     
-
-    
+   
 class TimeTableCreateView(generic.CreateView, LoginRequiredMixin):
     model = TimeTable
     form_class = TimeTableForm
@@ -30,3 +29,13 @@ class TimeTableCreateView(generic.CreateView, LoginRequiredMixin):
         return super(TimeTableCreateView, self).form_valid(form)
     
 
+class TimeTableTaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TimeTableTask
+    form_class = TimeTableTaskForm
+    template_name = 'timetable/timetabletask_add.html'
+    success_url = reverse_lazy('timetable_list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.save()
+        return super(TimeTableTaskCreateView, self).form_valid(form)

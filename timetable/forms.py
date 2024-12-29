@@ -12,3 +12,5 @@ class TimeTableTaskForm(forms.ModelForm):
     class Meta:
         model = TimeTableTask
         fields = ('start_time', 'end_time', 'description', 'timetable', 'comments')
+
+
