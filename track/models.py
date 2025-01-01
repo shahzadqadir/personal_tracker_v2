@@ -38,6 +38,7 @@ class Objective(models.Model):
                              related_name="goal_objectives", null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, 
                               related_name="user_objectives", null=True, blank=True)
+    comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
         if len(self.description) > 50:
