@@ -50,7 +50,8 @@
           <tr>
             <th>Description</th>
             <th>Objective</th>
-            <th>Effort Hours</th>        
+            <th>Start Time</th>
+            <th>End Time</th>          
             <th>Due Date</th>
             <th>Status</th>
           </tr>
@@ -60,7 +61,8 @@
           <tr>
             <td><a href="{% url 'task_detail' task.id%}">{{ task.title|safe }}</a></td>
             <td>{{ task.objective|safe}}</td>
-            <td>{{ task.effort_hours }}</td>        
+            <td>{{ task.start_time }}</td>
+            <td>{{ task.end_time }}</td>        
             <td>{{ task.due_date|date }}</td>
             <td>{{ task.status }}</td>
           </tr>

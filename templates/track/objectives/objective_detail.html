@@ -54,16 +54,27 @@
           <tr>
             <th>Description</th>
             <th>Status</th>
+            <th>Due Date</th>
             <th>Hours Worked</th>
+            <th>Sprint</th>
           </tr>
         </thead>    
       {% for task in objective.objective_tasks.all %}
         <tbody>
           <tr>
-            <td><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
-            <td>{{ task.status }}</td>
-            <td>{{ task.get_hours_worked }}</td>
-          </tr>
+            {% if task.status == 'notdone' %}
+                <td><a style="color:red" href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td style="color:red">{{ task.status }}</td>
+                <td style="color:red">{{ task.get_hours_worked }}</td>
+                <td style="color:red">{{ task.due_date }}</td>
+                <td style="color:red">{{ task.sprint }}</td>
+            {% else %}
+                <td><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.get_hours_worked }}</td>
+                <td>{{ task.due_date }}</td>
+            {% endif %}
+        </tr>
         </tbody>
       {% endfor %}
       </table>
