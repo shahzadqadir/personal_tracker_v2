@@ -50,21 +50,24 @@
           <tr>
             <th>Description</th>
             <th>Objective</th>
-            <th>Start Time</th>
-            <th>End Time</th>          
+            <th>Goal</th>         
             <th>Due Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th>Status</th>
           </tr>
         </thead>    
       {% for task in sprint.sprint_tasks.all|dictsort:"due_date" %}
         <tbody>
           <tr>
-            <td><a href="{% url 'task_detail' task.id%}">{{ task.title|safe }}</a></td>
+            <td><a href="{% url 'task_detail' task.id %}">{{ task.title|safe }}</a></td>
             <td>{{ task.objective|safe}}</td>
-            <td>{{ task.start_time }}</td>
-            <td>{{ task.end_time }}</td>        
-            <td>{{ task.due_date|date }}</td>
+            <td><a style="text-decoration:none; color:green;" href="{% url 'goal_detail' task.objective.goal.id %}">{{ task.objective.goal }}</a></td>     
+            <td>{{ task.due_date|date:"d M" }}</td>
+            <td>{{ task.start_time|time:"H:i" }}</td>
+            <td>{{ task.end_time|time:"H:i" }}</td>
             <td>{{ task.status }}</td>
+
           </tr>
         </tbody>
       {% endfor %}

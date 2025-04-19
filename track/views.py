@@ -13,14 +13,14 @@ from django.views.generic import (
 )
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from track import forms
 from track import models
-
-
 from track.models import (
     Goal, Objective, Task, Sprint
 )
+
+from googlecalendar import *
+from googlecalendar.calendar_services import *
 
 # Goals
 
@@ -91,7 +91,7 @@ class GoalDeleteView(LoginRequiredMixin, DeleteView):
 @login_required
 def objectives_list(request):
     
-    objectives = Objective.objects.filter(owner=request.user).exclude(status="complete")
+    objectives = Objective.objects.filter(owner=request.user).exclude(status="complete").order_by('due_date')
     form = forms.SearchForm()
     if request.method == "POST":
         form = forms.SearchForm(request.POST)
@@ -221,6 +221,23 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        form_data = form.cleaned_data
+        objective = str(form_data['objective']).lower()
+        calendar = GoogleCalendarAPI()
+        if 'aci' in objective:
+            colorId = '5'
+        elif 'admin' in objective:
+            colorId = '8'
+        elif 'weight' in objective:
+            colorId = '10'
+        elif 'rest' or 'testing' in objective:
+            colorId = '7'
+        calendar.add_event_to_google_calendar(
+            form_data['title'],            
+            start=(datetime.datetime.combine(form_data['due_date'].date(), form_data['start_time'])).isoformat(),
+            end=(datetime.datetime.combine(form_data['due_date'].date(), form_data['end_time'])).isoformat(),
+            colorId=colorId
+        )
         form.instance.save()
         return super(TaskCreateView, self).form_valid(form)
     

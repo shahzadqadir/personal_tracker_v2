@@ -76,11 +76,11 @@ class Objective(models.Model):
 
 
 class Sprint(models.Model):
-    STATUS_CHOICES = {
-        "notstarted": "notstarted",
-        "inprogress": "inprogress",
-        "complete": "complete",
-    }
+    STATUS_CHOICES = [
+        ("notstarted", "Not Started"),
+        ("inprogress", "In Progress"),
+        ("complete", "Complete"),
+    ]
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     start_date = models.DateField(default=timezone.now)
@@ -174,11 +174,11 @@ class Sprint(models.Model):
 
 
 class Task(models.Model):
-    STATUS_CHOICES = {
-        "notdone": "notdone",
-        "inprogress": "inprogress",
-        "complete": "complete",
-    }
+    STATUS_CHOICES = [
+    ("notstarted", "Not Started"),
+    ("inprogress", "In Progress"),
+    ("complete", "Complete"),
+    ]
     title = models.CharField(max_length=255)
     due_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=100, default="notdone", choices=STATUS_CHOICES)
